@@ -33,7 +33,7 @@ jobs:
       - name: Health check
         run: |
           sleep 2
-          curl -I http://localhost:8080 || true
+          curl -I http://localhost:80 || true
 
       - name: Print URL
         run: echo "App is available at http://localhost:80"
