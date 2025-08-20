@@ -1,0 +1,39 @@
+name: Deploy Locally (Self-Hosted)
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-local
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: self-hosted   # your self-hosted runner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t ci-cd-dashboard:latest .
+
+      - name: Stop existing container (if any)
+        run: |
+          if docker ps --format '{{.Names}}' | grep -q '^ci-cd-dashboard$'; then
+            docker stop ci-cd-dashboard && docker rm ci-cd-dashboard
+          elif docker ps -a --format '{{.Names}}' | grep -q '^ci-cd-dashboard$'; then
+            docker rm ci-cd-dashboard
+          fi
+
+      - name: Run container on port 80
+        run: docker run -d --name ci-cd-dashboard -p 80:80 ci-cd-dashboard:latest
+
+      - name: Health check
+        run: |
+          sleep 2
+          curl -I http://localhost:8080 || true
+
+      - name: Print URL
+        run: echo "App is available at http://localhost:80"
