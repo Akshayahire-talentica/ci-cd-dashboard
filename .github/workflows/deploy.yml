@@ -28,7 +28,7 @@ jobs:
           fi
 
       - name: Run container on port 81
-        run: docker run -d --name ci-cd-dashboard -p 81:81 ci-cd-dashboard:latest
+        run: docker run -d --name ci-cd-dashboard -p 81:80 ci-cd-dashboard:latest
 
       - name: Health check
         run: |
