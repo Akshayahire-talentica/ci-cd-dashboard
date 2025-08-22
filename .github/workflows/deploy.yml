@@ -27,13 +27,13 @@ jobs:
             docker rm ci-cd-dashboard
           fi
 
-      - name: Run container on port 80
-        run: docker run -d --name ci-cd-dashboard -p 80:80 ci-cd-dashboard:latest
+      - name: Run container on port 81
+        run: docker run -d --name ci-cd-dashboard -p 81:81 ci-cd-dashboard:latest
 
       - name: Health check
         run: |
           sleep 2
-          curl -I http://localhost:80 || true
+          curl -I http://localhost:81 || true
 
       - name: Print URL
-        run: echo "App is available at http://localhost:80"
+        run: echo "App is available at http://localhost:81"
