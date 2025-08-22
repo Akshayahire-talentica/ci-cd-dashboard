@@ -7,8 +7,8 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copy our custom index.html into nginx web root
 COPY index.html /usr/share/nginx/html/
 
-# Expose port 80 for web traffic
-EXPOSE 80
+# Expose port 81 for web traffic
+EXPOSE 81
 
 # Start nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
