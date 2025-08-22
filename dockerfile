@@ -8,7 +8,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY index.html /usr/share/nginx/html/
 
 # Expose port 81 for web traffic
-EXPOSE 81
+EXPOSE 80
 
 # Start nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
