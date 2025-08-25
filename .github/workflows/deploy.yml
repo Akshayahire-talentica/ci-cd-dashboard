@@ -38,11 +38,11 @@ jobs:
       - name: Print URL
         run: echo "App is available at http://localhost:81"
 
-    - name: Notify Slack - Success
-      if: success()
-      run: |
+      - name: Notify Slack - Success
+        if: success()
+        run: |
         curl -X POST -H 'Content-type: application/json' \
-        --data "{
+         --data "{
           \"text\": \":white_check_mark: *Build Succeeded!*\n
           *Job ID:* ${{ github.run_id }}\n
           *Repository:* ${{ github.repository }}\n
@@ -52,9 +52,9 @@ jobs:
           *Actor:* ${{ github.actor }}
           \"}" \
         ${{ secrets.SLACK_WEBHOOK_URL }}
-    - name: Notify Slack - Failure
-      if: failure()
-      run: |
+      - name: Notify Slack - Failure
+        if: failure()
+        run: |
         curl -X POST -H 'Content-type: application/json' \
         --data "{
           \"text\": \":x: *Build Failed!*\n
